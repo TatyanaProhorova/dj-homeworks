@@ -5,7 +5,9 @@ from articles.models import Article
 
 def articles_list(request):
     articles = Article.objects.all()
-
+    print(articles[0].scopes.all())
+    print(articles[1].scopes.all())
+    print(articles[2].scopes.all())
 
     template = 'articles/news.html'
     context = {'object_list': articles}
