@@ -1,9 +1,7 @@
 from django.contrib import admin
-
 from .models import Article, Scope, ArticleScope
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
-
 
 class ArticleScopeInlineFormset(BaseInlineFormSet):
     def clean(self):
@@ -20,7 +18,7 @@ class ArticleScopeInline(admin.TabularInline):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', ]
-    inlines = [ArticleScopeInline,]
+    inlines = [ArticleScopeInline, ]
 
 @admin.register(Scope)
 class ScopeAdmin(admin.ModelAdmin):
