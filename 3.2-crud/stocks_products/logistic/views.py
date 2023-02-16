@@ -19,9 +19,10 @@ class StockViewSet(ModelViewSet):
 
     def get_queryset(self):
         p = self.request.query_params.get('products')
-        q = Stock.objects.filter(products__in=p)
-        return q
-
+        if p:
+            q = Stock.objects.filter(products__in=p)
+            return q
+        return Stock.objects.all()
 
 #filter_backends = [DjangoFislterBackend, SearchFilter, OrderingrFilter]
 #filterset_fields = ['User',   ]

@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import Stock, Product, StockProduct
 
+
 class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -23,7 +24,6 @@ class StockSerializer(serializers.ModelSerializer):
         model = Stock
         fields = ('id', 'address', 'products', 'positions')
 
-
     def create(self, validated_data):
         # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
@@ -32,13 +32,12 @@ class StockSerializer(serializers.ModelSerializer):
         stock = super().create(validated_data)
 
         for position in positions:
-            StockProduct.objects.create(product = position['product'],
-                                        quantity = position['quantity'],
-                                        price = position['price'],
-                                        stock = stock,
+            StockProduct.objects.create(product=position['product'],
+                                        quantity=position['quantity'],
+                                        price=position['price'],
+                                        stock=stock,
                                         )
         return stock
-
 
     def update(self, instance, validated_data):
         # достаем связанные данные для других таблиц
@@ -55,7 +54,6 @@ class StockSerializer(serializers.ModelSerializer):
                                             price=position['price'],
                                             stock=stock,
                                             )
-
 
         # здесь вам надо обновить связанные таблицы
         # в нашем случае: таблицу StockProduct
