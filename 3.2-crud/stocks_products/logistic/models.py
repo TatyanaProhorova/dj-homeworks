@@ -15,7 +15,6 @@ class Stock(models.Model):
         related_name='stocks',
     )
 
-
 class StockProduct(models.Model):
     stock = models.ForeignKey(
         Stock,

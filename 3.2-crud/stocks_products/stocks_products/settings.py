@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-nw^y+m^wmxza1asgk+)!ua2qx9)g+#v=6%76-9i8i(6eqiw94j'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!   # ????????
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_filters',
 
     'logistic',
 ]
@@ -77,12 +78,22 @@ WSGI_APPLICATION = 'stocks_products.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'netology_stocks_products',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#         'USER': 'netology_stocks_products',
+#         'PASSWORD': 'netology_stocks_products'
+#     }
+#
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'netology_stocks_products',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.stocks_products',
     }
 }
 
@@ -129,3 +140,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [                              # словарь с настройками, которые необходимы для DRF
+        'django_filters.rest_framework.DjangoFilterBackend',  # в DRF по умолчанию есть 3 фильтра и используются для всех viewset, этот - по параметру                                                            # сюда же можно добавить фильтр search для поиска по тексту, а можно и сразу в запрос
+    ],                                                     # СПИСОК, КОТОРЫЙ СОДЕРЖИТ ВСЕ ДОСТУПНЫЕ ФИЛЬТРЫ
+    # 'SEARCH_PARAM': 'q',
+    # 'ORDERING_PARAM': 'o',
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 1
+}
